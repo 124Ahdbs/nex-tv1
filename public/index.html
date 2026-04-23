@@ -1,0 +1,1245 @@
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+        <title>NEX | منصة المشاهدة</title>
+        <meta name="theme-color" content="#ff004c">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+            
+            body { 
+                background: #0a0a0a; 
+                color: #fff; 
+                font-family: 'Cairo', sans-serif; 
+                overflow-x: hidden; 
+                min-height: 100vh;
+                position: relative;
+            }
+            
+            /* خلفية متحركة عصرية - محسنة للأداء */
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: 
+                    linear-gradient(rgba(255,0,76,0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,0,76,0.05) 1px, transparent 1px);
+                background-size: 50px 50px;
+                z-index: -2;
+                animation: backgroundMove 20s linear infinite;
+                pointer-events: none;
+            }
+            
+            @keyframes backgroundMove {
+                0% { transform: translate(0, 0); }
+                100% { transform: translate(50px, 50px); }
+            }
+            
+            body::after {
+                content: '';
+                position: fixed;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle at 30% 50%, rgba(255,0,76,0.06), transparent 60%);
+                z-index: -1;
+                animation: pulseGlow 8s ease-in-out infinite;
+                pointer-events: none;
+            }
+            
+            @keyframes pulseGlow {
+                0%, 100% { opacity: 0.4; transform: scale(1); }
+                50% { opacity: 0.7; transform: scale(1.05); }
+            }
+
+            /* ترحيب متطور */
+            .welcome-animation { 
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                height: 100%; 
+                background: linear-gradient(135deg, #ff004c, #0a0a0a); 
+                z-index: 100000; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                flex-direction: column; 
+                animation: fadeOutWelcome 3s ease forwards; 
+                pointer-events: none; 
+            }
+            
+            @keyframes fadeOutWelcome { 
+                0% { opacity: 1; visibility: visible; } 
+                70% { opacity: 1; } 
+                100% { opacity: 0; visibility: hidden; } 
+            }
+            
+            .welcome-animation h1 { 
+                font-size: clamp(2rem, 10vw, 5rem); 
+                font-family: 'Orbitron', sans-serif; 
+                background: linear-gradient(135deg, #fff, #ffcc00, #ff004c); 
+                -webkit-background-clip: text; 
+                background-clip: text; 
+                color: transparent; 
+                animation: glowPulse 1.5s ease;
+                text-shadow: 0 0 30px rgba(255,0,76,0.5);
+            }
+            
+            .welcome-animation p { 
+                font-size: clamp(0.9rem, 5vw, 1.3rem); 
+                margin-top: 20px; 
+                color: #ffcc00; 
+                letter-spacing: 2px;
+            }
+            
+            @keyframes glowPulse { 
+                0% { opacity: 0; transform: scale(0.8) rotate(-5deg); } 
+                50% { opacity: 1; transform: scale(1.1) rotate(0deg); } 
+                100% { opacity: 1; transform: scale(1) rotate(0deg); } 
+            }
+
+            ::-webkit-scrollbar { width: 6px; }
+            ::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
+            ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #ff004c, #ff66a5); border-radius: 10px; }
+
+            /* هيدر مطور - متجاوب */
+            header { 
+                position: fixed; 
+                top: 0; 
+                width: 100%; 
+                padding: 12px 5%; 
+                background: rgba(0,0,0,0.95); 
+                backdrop-filter: blur(20px); 
+                display: flex; 
+                justify-content: space-between; 
+                align-items: center; 
+                z-index: 1000; 
+                border-bottom: 1px solid rgba(255,0,76,0.3); 
+                flex-wrap: wrap;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            }
+            
+            .logo { 
+                font-size: clamp(1.2rem, 6vw, 2rem); 
+                font-weight: 900; 
+                background: linear-gradient(135deg, #ff004c, #ffcc00); 
+                -webkit-background-clip: text; 
+                background-clip: text; 
+                color: transparent; 
+                font-family: 'Orbitron', sans-serif;
+                text-shadow: 0 0 20px rgba(255,0,76,0.3);
+            }
+            
+            .nav-links { 
+                display: flex; 
+                gap: 8px; 
+                flex-wrap: wrap; 
+                justify-content: center;
+            }
+            
+            @media (min-width: 768px) {
+                .nav-links { gap: 15px; }
+            }
+            
+            .nav-links span { 
+                cursor: pointer; 
+                font-weight: 700; 
+                padding: 6px 12px; 
+                transition: all 0.3s ease; 
+                font-size: clamp(0.7rem, 3.5vw, 0.95rem);
+                border-radius: 50px;
+                background: rgba(255,255,255,0.05);
+                position: relative;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            
+            @media (min-width: 768px) {
+                .nav-links span { padding: 8px 18px; }
+            }
+            
+            .nav-links span::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,0,76,0.3), transparent);
+                transition: 0.5s;
+            }
+            
+            .nav-links span:hover::before {
+                left: 100%;
+            }
+            
+            .nav-links span:hover, .nav-links span:active { 
+                color: #ff004c; 
+                background: rgba(255,0,76,0.15);
+                transform: translateY(-2px);
+            }
+
+            /* Hero متجاوب */
+            .hero { 
+                padding: 85px 5% 25px; 
+                text-align: center; 
+                position: relative;
+            }
+            
+            @media (min-width: 768px) {
+                .hero { padding: 100px 5% 30px; }
+            }
+            
+            .hero h1 { 
+                font-size: clamp(1.3rem, 7vw, 2.8rem); 
+                background: linear-gradient(135deg, #fff, #ff99bb, #ff004c); 
+                -webkit-background-clip: text; 
+                background-clip: text; 
+                color: transparent;
+                animation: titleGlow 3s ease-in-out infinite;
+            }
+            
+            @keyframes titleGlow {
+                0%, 100% { text-shadow: 0 0 20px rgba(255,0,76,0.3); }
+                50% { text-shadow: 0 0 40px rgba(255,0,76,0.6); }
+            }
+            
+            .hero p {
+                color: rgba(255,255,255,0.7);
+                font-size: clamp(0.75rem, 3.5vw, 0.95rem);
+            }
+
+            /* بحث متطور - متجاوب */
+            .search-section { 
+                padding: 0 5% 25px; 
+            }
+            
+            .search-box { 
+                display: flex; 
+                background: rgba(20,20,30,0.8); 
+                border-radius: 60px; 
+                border: 1px solid rgba(255,0,76,0.3); 
+                backdrop-filter: blur(10px); 
+                transition: all 0.3s ease;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .search-box:hover, .search-box:focus-within {
+                border-color: #ff004c;
+                box-shadow: 0 0 20px rgba(255,0,76,0.2);
+                transform: scale(1.02);
+            }
+            
+            .search-box i { 
+                padding: 0 15px; 
+                color: #ff004c; 
+                line-height: 50px; 
+                font-size: 1rem; 
+            }
+            
+            @media (min-width: 768px) {
+                .search-box i { padding: 0 18px; line-height: 55px; font-size: 1.1rem; }
+                .search-box input { height: 55px; font-size: 1rem; }
+            }
+            
+            .search-box input { 
+                flex: 1; 
+                background: none; 
+                border: none; 
+                color: white; 
+                padding: 0 12px; 
+                outline: none; 
+                font-size: clamp(0.85rem, 4vw, 1rem); 
+                height: 50px; 
+            }
+            
+            .search-box input::placeholder {
+                color: rgba(255,255,255,0.5);
+            }
+
+            /* Grid مطور - تجاوب ممتاز مع جميع الأجهزة */
+            .grid { 
+                display: grid; 
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+                gap: 12px; 
+                padding: 20px 5% 80px; 
+            }
+            
+            @media (min-width: 480px) { 
+                .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; } 
+            }
+            @media (min-width: 640px) { 
+                .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 18px; } 
+            }
+            @media (min-width: 768px) { 
+                .grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; } 
+            }
+            @media (min-width: 1024px) { 
+                .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; } 
+            }
+            @media (min-width: 1440px) { 
+                .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; } 
+            }
+            @media (min-width: 2560px) { 
+                .grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; } 
+            }
+
+            /* بطاقات مطورة */
+            .item { 
+                position: relative; 
+                border-radius: 16px; 
+                overflow: hidden; 
+                aspect-ratio: 2/3; 
+                cursor: pointer; 
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+                border: 1px solid rgba(255,255,255,0.1);
+                background: #111;
+            }
+            
+            .item:hover, .item:active { 
+                transform: translateY(-8px) scale(1.02); 
+                border-color: #ff004c; 
+                box-shadow: 0 20px 30px rgba(255,0,76,0.3); 
+            }
+            
+            .item img { 
+                width: 100%; 
+                height: 100%; 
+                object-fit: cover; 
+                transition: 0.5s; 
+            }
+            
+            .item:hover img, .item:active img { 
+                transform: scale(1.05); 
+            }
+            
+            .overlay { 
+                position: absolute; 
+                inset: 0; 
+                background: linear-gradient(to top, #000, transparent); 
+                display: flex; 
+                align-items: flex-end; 
+                padding: 15px; 
+                opacity: 0; 
+                transition: 0.3s; 
+            }
+            
+            .item:hover .overlay, .item:active .overlay { 
+                opacity: 1; 
+            }
+            
+            .overlay h5 {
+                font-size: clamp(0.75rem, 3vw, 0.9rem);
+                font-weight: 700;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            }
+            
+            .delete-btn { 
+                position: absolute; 
+                top: 10px; 
+                left: 10px; 
+                background: #ff004c; 
+                border: none; 
+                width: 30px; 
+                height: 30px; 
+                border-radius: 50%; 
+                cursor: pointer; 
+                color: white; 
+                z-index: 5;
+                transition: 0.2s;
+            }
+            
+            .delete-btn:hover, .delete-btn:active {
+                transform: scale(1.1);
+                background: #ff3355;
+            }
+
+            /* شاشة التفاصيل - متجاوبة */
+            .details-screen { 
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                height: 100%; 
+                background: #000; 
+                z-index: 2000; 
+                display: none; 
+                overflow-y: auto; 
+                animation: slideUpFade 0.5s ease; 
+            }
+            
+            @keyframes slideUpFade { 
+                from { opacity: 0; transform: translateY(30px); } 
+                to { opacity: 1; transform: translateY(0); } 
+            }
+            
+            .det-hero { 
+                height: 35vh; 
+                background-size: cover; 
+                background-position: center; 
+                position: relative; 
+            }
+            
+            @media (min-width: 768px) { 
+                .det-hero { height: 50vh; } 
+            }
+            
+            @media (min-width: 1024px) { 
+                .det-hero { height: 55vh; } 
+            }
+            
+            .det-hero::after { 
+                content: ''; 
+                position: absolute; 
+                bottom: 0; 
+                left: 0; 
+                right: 0; 
+                height: 150px; 
+                background: linear-gradient(to top, #000, transparent); 
+            }
+            
+            .det-content { 
+                padding: 0 5%; 
+                margin-top: -60px; 
+                position: relative; 
+            }
+            
+            @media (min-width: 768px) { 
+                .det-content { margin-top: -100px; } 
+            }
+            
+            .det-content h1 { 
+                font-size: clamp(1.3rem, 6vw, 2.5rem); 
+                margin-bottom: 10px; 
+            }
+            
+            .det-story { 
+                color: #ccc; 
+                line-height: 1.6; 
+                margin-bottom: 20px; 
+                font-size: clamp(0.8rem, 4vw, 1rem); 
+            }
+
+            /* المواسم والحلقات - متجاوبة */
+            .seasons-section, .episodes-section { margin: 20px 0; }
+            
+            .seasons-title, .episodes-title { 
+                color: #ff004c; 
+                font-size: clamp(1rem, 5vw, 1.4rem); 
+                margin-bottom: 12px; 
+                display: flex; 
+                align-items: center; 
+                gap: 8px; 
+            }
+            
+            .seasons-list, .episodes-list { 
+                display: flex; 
+                gap: 12px; 
+                overflow-x: auto; 
+                padding-bottom: 12px; 
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .season-card { 
+                min-width: 85px; 
+                background: #1a1a2a; 
+                border-radius: 14px; 
+                padding: 10px; 
+                text-align: center; 
+                cursor: pointer; 
+                border: 1px solid #333; 
+                transition: 0.2s; 
+            }
+            
+            @media (min-width: 768px) { 
+                .season-card { min-width: 110px; padding: 15px; } 
+            }
+            
+            .season-card:hover, .season-card:active { 
+                border-color: #ff004c; 
+                transform: scale(1.02); 
+            }
+            
+            .season-num { 
+                font-size: 1.2rem; 
+                font-weight: bold; 
+                color: #ff004c; 
+            }
+            
+            @media (min-width: 768px) {
+                .season-num { font-size: 1.5rem; }
+            }
+            
+            .episode-card { 
+                min-width: 160px; 
+                background: #1a1a2a; 
+                border-radius: 12px; 
+                padding: 10px; 
+                cursor: pointer; 
+                border: 1px solid #333; 
+                transition: 0.2s; 
+            }
+            
+            @media (min-width: 768px) { 
+                .episode-card { min-width: 200px; padding: 12px; } 
+            }
+            
+            .episode-card:hover, .episode-card:active { 
+                border-color: #ff004c; 
+                transform: translateY(-3px); 
+            }
+            
+            .episode-name { 
+                font-weight: bold; 
+                margin-bottom: 5px; 
+                font-size: 0.85rem; 
+            }
+            
+            @media (min-width: 768px) {
+                .episode-name { font-size: 0.95rem; }
+            }
+
+            /* فيديو - متجاوب */
+            .video-player { 
+                width: 100%; 
+                aspect-ratio: 16/9; 
+                background: #000; 
+                border-radius: 16px; 
+                overflow: hidden; 
+                margin: 20px 0; 
+                border: 2px solid #ff004c; 
+            }
+            
+            iframe { 
+                width: 100%; 
+                height: 100%; 
+                border: none; 
+            }
+            
+            .btn-back { 
+                background: #ff004c; 
+                color: white; 
+                border: none; 
+                padding: 8px 20px; 
+                border-radius: 50px; 
+                cursor: pointer; 
+                margin: 15px 0; 
+                font-size: clamp(0.8rem, 4vw, 1rem);
+                transition: 0.2s;
+            }
+            
+            .btn-back:hover, .btn-back:active {
+                background: #ff3355;
+                transform: scale(1.02);
+            }
+
+            /* تسجيل الدخول - متجاوب */
+            .login-overlay { 
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                height: 100%; 
+                background: #000; 
+                z-index: 10000; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                padding: 20px; 
+            }
+            
+            .login-box { 
+                background: #111; 
+                border-radius: 20px; 
+                padding: 25px 20px; 
+                text-align: center; 
+                width: 90%; 
+                max-width: 400px; 
+                border: 1px solid #ff004c;
+                animation: fadeInUp 0.5s ease;
+            }
+            
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(30px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            @media (min-width: 480px) {
+                .login-box { padding: 35px 30px; }
+            }
+            
+            .login-box h2 { 
+                color: #ff004c; 
+                margin-bottom: 20px; 
+                font-size: clamp(1.2rem, 5vw, 1.5rem); 
+            }
+            
+            .login-box input { 
+                width: 100%; 
+                padding: 12px; 
+                margin: 10px 0; 
+                background: #1a1a1a; 
+                border: 1px solid #333; 
+                border-radius: 50px; 
+                color: white; 
+                font-size: 1rem; 
+            }
+            
+            .login-box button { 
+                background: #ff004c; 
+                color: white; 
+                border: none; 
+                padding: 12px; 
+                border-radius: 50px; 
+                width: 100%; 
+                cursor: pointer; 
+                font-size: 1rem; 
+                font-weight: bold; 
+                transition: 0.2s; 
+            }
+            
+            .login-box button:hover, .login-box button:active { 
+                background: #ff3355; 
+                transform: scale(1.02);
+            }
+            
+            .code-section { 
+                margin-top: 15px; 
+                padding-top: 15px; 
+                border-top: 1px solid #333; 
+            }
+            
+            .discord-link { 
+                color: #7289da; 
+                text-decoration: none; 
+                display: block; 
+                margin-top: 15px;
+                transition: 0.2s;
+            }
+            
+            .discord-link:hover, .discord-link:active {
+                color: #8ea1e8;
+                transform: scale(1.02);
+            }
+            
+            .error-msg, .success-msg { font-size: 0.8rem; margin-top: 10px; display: none; }
+            .error-msg { color: #ff004c; }
+            .success-msg { color: #00cc66; }
+
+            .requests-panel { 
+                background: #111; 
+                border-radius: 15px; 
+                padding: 20px; 
+                margin: 20px 5%; 
+                border: 1px solid #ff004c; 
+                display: none; 
+            }
+            
+            .request-card { 
+                background: #1a1a1a; 
+                border-radius: 12px; 
+                padding: 15px; 
+                margin-bottom: 15px; 
+                display: flex; 
+                justify-content: space-between; 
+                align-items: center; 
+                flex-wrap: wrap; 
+                gap: 10px; 
+            }
+            
+            .accept-btn, .reject-btn { 
+                border: none; 
+                padding: 8px 20px; 
+                border-radius: 50px; 
+                color: white; 
+                cursor: pointer; 
+                transition: 0.2s;
+            }
+            
+            .accept-btn { background: #00cc66; }
+            .reject-btn { background: #ff004c; }
+            
+            .accept-btn:hover, .accept-btn:active { background: #00ff77; transform: scale(1.02); }
+            .reject-btn:hover, .reject-btn:active { background: #ff3355; transform: scale(1.02); }
+
+            #loader { text-align: center; padding: 50px; color: #ff004c; }
+            
+            /* دعم شاشات 4K و 8K */
+            @media (min-width: 2560px) {
+                .grid { gap: 35px; }
+                .det-hero { height: 40vh; }
+                .det-content { margin-top: -120px; }
+            }
+            
+            /* دعم شاشات UltraWide */
+            @media (min-aspect-ratio: 21/9) {
+                .grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+                .hero h1 { font-size: 2.5rem; }
+            }
+            
+            /* دعم أجهزة اللمس */
+            @media (hover: none) and (pointer: coarse) {
+                .item:hover { transform: none; }
+                .item:active { transform: translateY(-5px) scale(1.01); }
+                .overlay { opacity: 1; background: linear-gradient(to top, #000, rgba(0,0,0,0.5)); }
+            }
+            
+            /* دعم التلفزيونات */
+            @media (min-width: 1920px) and (pointer: coarse) {
+                .nav-links span { padding: 12px 24px; font-size: 1.1rem; }
+                .search-box input { font-size: 1.2rem; height: 65px; }
+                .search-box i { line-height: 65px; font-size: 1.3rem; }
+            }
+        </style>
+    </head>
+    <body>
+
+    <div class="welcome-animation">
+        <h1>NEX</h1>
+        <p>برمجة: الشمري - ابو عبدالله</p>
+    </div>
+
+    <header>
+        <div class="logo">NEX</div>
+        <div class="nav-links">
+            <span onclick="loadType('movie')">🎬 أفلام</span>
+            <span onclick="loadType('tv')">📺 مسلسلات</span>
+            <span onclick="loadCategory('gulf')">🇸🇦 مسلسلات خليجية</span>
+            <span onclick="loadCategory('egypt')">🇪🇬 مسلسلات مصرية</span>
+            <span onclick="loadCategory('ramadan')">🌙 مسلسلات رمضان</span>
+            <span onclick="loadCategory('ramadan_works')">⭐ أعمال رمضان</span>
+            <span id="requestsTab" onclick="toggleRequests()" style="display:none;">📋 طلبات</span>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>✨ NEX ✨</h1>
+        <p>أفلام ومسلسلات عربية وعالمية | بدون أنمي | 2024-2026</p>
+    </div>
+
+    <div class="search-section">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن فيلم أو مسلسل...">
+        </div>
+    </div>
+
+    <div id="requestsPanel" class="requests-panel">
+        <h2 style="color:#ff004c; margin-bottom:15px;">📋 طلبات التفعيل</h2>
+        <div id="requestsList"></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div id="loader"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</div>
+
+    <div id="detailsScreen" class="details-screen">
+        <div class="close-btn" onclick="closeDetails()" style="position:absolute; top:15px; right:20px; font-size:2rem; cursor:pointer; z-index:2100;">&times;</div>
+        <div class="det-hero" id="detHero"></div>
+        <div class="det-content">
+            <button class="btn-back" onclick="closeDetails()"><i class="fas fa-arrow-right"></i> رجوع</button>
+            <h1 id="detTitle"></h1>
+            <p class="det-story" id="detStory"></p>
+            <div id="seasonsContainer" style="display:none;"><div class="seasons-section"><div class="seasons-title">📺 المواسم</div><div class="seasons-list" id="seasonsList"></div></div></div>
+            <div id="episodesContainer" style="display:none;"><div class="episodes-section"><div class="seasons-title">🎬 الحلقات</div><div class="episodes-list" id="episodesList"></div></div></div>
+            <div class="video-player"><iframe id="detailsFrame" src="" allowfullscreen></iframe></div>
+        </div>
+    </div>
+
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-box">
+            <h2>تسجيل الدخول</h2>
+            <input type="text" id="discordId" placeholder="أدخل معرف ديسكورد">
+            <button onclick="login()">تسجيل الدخول</button>
+            <div class="code-section" id="codeSection">
+                <p>أو أدخل رمز التفعيل</p>
+                <input type="text" id="activationCode" placeholder="رمز التفعيل" style="direction:ltr; text-align:center;">
+                <button id="activateBtn" onclick="activateWithCode()">تفعيل</button>
+                <div id="codeError" class="error-msg"></div>
+                <div id="codeSuccess" class="success-msg"></div>
+            </div>
+            <a href="https://discord.gg/KN56SvTf5t" class="discord-link" target="_blank"><i class="fab fa-discord"></i> انضم للسيرفر</a>
+        </div>
+    </div>
+
+    <script>
+        // ======================== نظام الحماية المتكامل (بدون تغيير الشكل) ========================
+        (function() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+                    (e.ctrlKey && e.key === 'u') ||
+                    (e.ctrlKey && e.shiftKey && e.key === 'K') ||
+                    (e.ctrlKey && e.key === 's') ||
+                    (e.metaKey && e.shiftKey && e.key === 'i')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            let devToolsOpened = false;
+            const checkDevTools = () => {
+                const threshold = 100;
+                const widthDiff = window.outerWidth - window.innerWidth > threshold;
+                const heightDiff = window.outerHeight - window.innerHeight > threshold;
+                if (widthDiff || heightDiff) {
+                    if (!devToolsOpened) {
+                        devToolsOpened = true;
+                        document.body.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#ff004c;display:flex;align-items:center;justify-content:center;z-index:999999;font-size:1.5rem;text-align:center;padding:20px;">⛔ تم اكتشاف أدوات المطور<br>تم حظر الوصول لحماية المحتوى</div>';
+                        setTimeout(() => { window.location.href = 'about:blank'; }, 100);
+                    }
+                } else {
+                    devToolsOpened = false;
+                }
+            };
+            setInterval(checkDevTools, 1000);
+            
+            const noop = () => {};
+            if (window.console) {
+                console.log = noop;
+                console.info = noop;
+                console.warn = noop;
+                console.error = noop;
+                console.debug = noop;
+            }
+            
+            setInterval(() => { debugger; }, 50);
+        })();
+        
+        const API_URL = 'http://localhost:3000/api';
+        const API_KEY = 'e3c03317b06183382fe22b5da41a41c8';
+        let currentType = 'movie';
+        let currentCategory = null;
+        let page = 1;
+        let isLoading = false;
+        let allItems = [];
+        let currentUser = null;
+        let adminMode = false;
+        let currentTVId = null;
+        
+        const VIP_IDS = ['1496793309216243814', '1362313124450926603', '1075307282239336518'];
+        const forbiddenWords = ['anime', 'animation', 'cartoon', 'انمي', 'كرتون', 'رسوم متحركة', 'sex', 'porn', 'adult', 'xxx', 'سكس', 'جنس', 'إباحي', 'مخل', 'hentai', 'ecchi', 'manga', 'مانجا', 'رسوم', 'متحركة', 'أنميشن'];
+        
+        let blockedItems = JSON.parse(localStorage.getItem('nex_blocked') || '[]');
+        function saveBlocked() { localStorage.setItem('nex_blocked', JSON.stringify(blockedItems)); }
+
+        async function checkSubscription(userId) {
+            if (VIP_IDS.includes(userId)) return true;
+            try {
+                const res = await fetch(`${API_URL}/subscription/${userId}`);
+                const data = await res.json();
+                return data.active === true;
+            } catch(e) { return false; }
+        }
+
+        window.activateWithCode = async function() {
+            const codeInput = document.getElementById('activationCode');
+            const discordIdInput = document.getElementById('discordId');
+            const errorDiv = document.getElementById('codeError');
+            const successDiv = document.getElementById('codeSuccess');
+            const btn = document.getElementById('activateBtn');
+            
+            if (!discordIdInput) {
+                const loginBox = document.querySelector('.login-box');
+                if (loginBox) {
+                    loginBox.innerHTML = `
+                        <h2>تسجيل الدخول</h2>
+                        <input type="text" id="discordId" placeholder="أدخل معرف ديسكورد">
+                        <button onclick="login()">تسجيل الدخول</button>
+                        <div class="code-section">
+                            <p>أو أدخل رمز التفعيل</p>
+                            <input type="text" id="activationCode" placeholder="رمز التفعيل" style="direction:ltr; text-align:center;">
+                            <button id="activateBtn" onclick="activateWithCode()">تفعيل</button>
+                            <div id="codeError" class="error-msg"></div>
+                            <div id="codeSuccess" class="success-msg"></div>
+                        </div>
+                        <a href="https://discord.gg/KN56SvTf5t" class="discord-link" target="_blank">📢 انضم للسيرفر</a>
+                    `;
+                }
+                setTimeout(() => activateWithCode(), 100);
+                return;
+            }
+            
+            if (!codeInput) {
+                if (errorDiv) { errorDiv.innerText = '❌ خطأ: حقل الرمز غير موجود'; errorDiv.style.display = 'block'; }
+                return;
+            }
+            
+            const code = codeInput.value.trim().toUpperCase();
+            const discordId = discordIdInput.value.trim();
+            
+            if (errorDiv) errorDiv.style.display = 'none';
+            if (successDiv) successDiv.style.display = 'none';
+            
+            if (!code) {
+                if (errorDiv) { errorDiv.innerText = '❌ الرجاء إدخال رمز التفعيل'; errorDiv.style.display = 'block'; }
+                return;
+            }
+            if (!discordId) {
+                if (errorDiv) { errorDiv.innerText = '❌ الرجاء إدخال معرف ديسكورد'; errorDiv.style.display = 'block'; }
+                return;
+            }
+            
+            if (btn) {
+                const originalText = btn.innerText;
+                btn.innerText = '⏳ جاري التفعيل...';
+                btn.disabled = true;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/activate-with-code`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code: code, user_id: discordId })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    if (successDiv) {
+                        successDiv.innerHTML = `✅ <strong>تم التفعيل بنجاح!</strong><br>🎉 الباقة: ${data.plan === 'vip' ? 'VIP ذهبية' : 'عادية'}<br>📅 المدة: ${data.days} يوم<br>🔄 سيتم تحديث الصفحة...`;
+                        successDiv.style.display = 'block';
+                    }
+                    localStorage.setItem('nex_user', discordId);
+                    setTimeout(() => { window.location.reload(); }, 2500);
+                } else {
+                    if (errorDiv) {
+                        errorDiv.innerText = '❌ ' + (data.error || 'رمز غير صالح أو مستخدم من قبل');
+                        errorDiv.style.display = 'block';
+                    }
+                    if (btn) {
+                        btn.innerText = 'تفعيل';
+                        btn.disabled = false;
+                    }
+                }
+            } catch(e) {
+                if (errorDiv) {
+                    errorDiv.innerText = '❌ خطأ في الاتصال بالخادم. تأكد من تشغيل server.js';
+                    errorDiv.style.display = 'block';
+                }
+                if (btn) {
+                    btn.innerText = 'تفعيل';
+                    btn.disabled = false;
+                }
+            }
+        }
+
+        async function login() {
+            const discordId = document.getElementById('discordId').value.trim();
+            if (!discordId) { alert('الرجاء إدخال معرف ديسكورد'); return; }
+            currentUser = discordId;
+            localStorage.setItem('nex_user', currentUser);
+            const hasSub = await checkSubscription(currentUser);
+            if (hasSub) {
+                document.getElementById('loginOverlay').style.display = 'none';
+                loadMovies();
+            } else {
+                const loginBox = document.querySelector('.login-box');
+                if (loginBox) {
+                    loginBox.innerHTML = `
+                        <h2>⛔ غير مشترك</h2>
+                        <div class="code-section">
+                            <p>أدخل رمز التفعيل</p>
+                            <input type="text" id="activationCode" placeholder="رمز التفعيل" style="direction:ltr; text-align:center;">
+                            <button id="activateBtn" onclick="activateWithCode()">تفعيل</button>
+                            <div id="codeError" class="error-msg"></div>
+                            <div id="codeSuccess" class="success-msg"></div>
+                        </div>
+                        <a href="https://discord.gg/KbdX9hgWE" target="_blank" class="discord-link">📢 انضم للسيرفر</a>
+                    `;
+                }
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F8') {
+                const pass = prompt('🔐 كلمة المرور:');
+                if (pass === 'stam48382') {
+                    adminMode = true;
+                    const tab = document.getElementById('requestsTab');
+                    if (tab) tab.style.display = 'inline-block';
+                    alert('✅ وضع المدير مفعل');
+                    renderItems(allItems);
+                    fetchRequests();
+                }
+            }
+        });
+
+        async function fetchRequests() {
+            try {
+                const res = await fetch(`${API_URL}/activation-requests`);
+                const data = await res.json();
+                renderRequests(data.requests || []);
+            } catch(e) {}
+        }
+
+        function renderRequests(requests) {
+            const container = document.getElementById('requestsList');
+            if (!container) return;
+            if (requests.length === 0) { container.innerHTML = '<div style="text-align:center; padding:20px;">📭 لا توجد طلبات</div>'; return; }
+            container.innerHTML = '';
+            requests.forEach(req => {
+                const div = document.createElement('div');
+                div.className = 'request-card';
+                div.innerHTML = `<div><strong>👤 المرسل:</strong> ${req.admin_name}<br><strong>👥 المستخدم:</strong> ${req.user_name}<br><strong>⏰ المدة:</strong> ${req.days} يوم<br><strong>🔑 الرمز:</strong> <code>${req.code}</code></div>
+                    <div><button class="accept-btn" onclick="acceptRequest('${req.id}', '${req.user_id}', ${req.days}, '${req.plan}', '${req.code}')">✅ قبول</button>
+                    <button class="reject-btn" onclick="rejectRequest('${req.id}')">❌ رفض</button></div>`;
+                container.appendChild(div);
+            });
+        }
+
+        async function acceptRequest(id, userId, days, plan, code) {
+            await fetch(`${API_URL}/accept-request`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ request_id: id, user_id: userId, days, plan, code }) });
+            alert(`✅ تم التفعيل`);
+            fetchRequests();
+        }
+
+        async function rejectRequest(id) {
+            await fetch(`${API_URL}/reject-request`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ request_id: id }) });
+            alert('❌ تم الرفض');
+            fetchRequests();
+        }
+
+        function toggleRequests() {
+            if (!adminMode) return;
+            const panel = document.getElementById('requestsPanel');
+            if (panel) panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+            if (panel.style.display === 'block') fetchRequests();
+        }
+        
+        function loadCategory(category) {
+            currentCategory = category;
+            currentType = 'tv';
+            page = 1;
+            allItems = [];
+            const grid = document.getElementById('grid');
+            if (grid) grid.innerHTML = '';
+            fetchMovies();
+        }
+
+        async function fetchMovies() {
+            if (isLoading) return;
+            isLoading = true;
+            const loader = document.getElementById('loader');
+            if (loader) loader.style.display = 'block';
+            
+            let url = `https://api.themoviedb.org/3/discover/${currentType}?api_key=${API_KEY}&language=ar-SA&sort_by=popularity.desc&include_adult=false&page=${page}&without_genres=16,10749,18`;
+            
+            if (currentType === 'movie') {
+                url += `&primary_release_date.gte=2024-01-01&primary_release_date.lte=2026-12-31`;
+            } else {
+                url += `&first_air_date.gte=2024-01-01&first_air_date.lte=2026-12-31`;
+            }
+            
+            if (currentCategory === 'gulf') {
+                url += '&with_origin_country=SA|AE|KW|QA|BH|OM&with_original_language=ar';
+            } else if (currentCategory === 'egypt') {
+                url += '&with_origin_country=EG&with_original_language=ar';
+            } else if (currentCategory === 'ramadan') {
+                url += '&with_keywords=ramadan|رمضان&with_original_language=ar';
+            } else if (currentCategory === 'ramadan_works') {
+                url += '&with_keywords=ramadan|رمضان|مسلسل رمضان&with_original_language=ar';
+            }
+            
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                if (data.results && data.results.length > 0) {
+                    data.results.forEach(item => {
+                        if (blockedItems.includes(item.id)) return;
+                        const title = (item.title || item.name || '').toLowerCase();
+                        const overview = (item.overview || '').toLowerCase();
+                        const content = title + " " + overview;
+                        const isSafe = !forbiddenWords.some(word => content.includes(word));
+                        if (isSafe && item.poster_path && !title.includes('anime') && !title.includes('cartoon') && !title.includes('animation')) {
+                            allItems.push(item);
+                        }
+                    });
+                    renderItems(allItems);
+                    page++;
+                } else if (page === 1) {
+                    renderItems([]);
+                }
+            } catch(e) { console.error(e); }
+            isLoading = false;
+            if (loader) loader.style.display = 'none';
+        }
+
+        function renderItems(items) {
+            const grid = document.getElementById('grid');
+            if (!grid) return;
+            if (items.length === 0) {
+                grid.innerHTML = '<div style="text-align:center; padding:50px; color:#ff004c;">✨ لا توجد محتويات متاحة حالياً ✨</div>';
+                return;
+            }
+            grid.innerHTML = '';
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'item';
+                card.onclick = () => openMedia(item);
+                card.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${item.poster_path}" loading="lazy"><div class="overlay"><h5>${item.title || item.name}</h5>${adminMode ? `<button class="delete-btn" onclick="event.stopPropagation(); deleteItem(${item.id})"><i class="fas fa-trash"></i></button>` : ''}</div>`;
+                grid.appendChild(card);
+            });
+        }
+
+        function deleteItem(id) {
+            if (!adminMode) return;
+            if (!blockedItems.includes(id)) blockedItems.push(id);
+            saveBlocked();
+            allItems = allItems.filter(i => i.id != id);
+            renderItems(allItems);
+            alert('✅ تم حذف المحتوى');
+        }
+
+        async function openMedia(item) {
+            const detailsScreen = document.getElementById('detailsScreen');
+            if (!detailsScreen) return;
+            detailsScreen.style.display = 'block';
+            const detTitle = document.getElementById('detTitle');
+            const detStory = document.getElementById('detStory');
+            const detHero = document.getElementById('detHero');
+            if (detTitle) detTitle.innerText = item.title || item.name;
+            if (detStory) detStory.innerText = item.overview || "✨ لا يوجد وصف متاح";
+            if (detHero) detHero.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${item.backdrop_path || item.poster_path})`;
+            
+            const seasonsContainer = document.getElementById('seasonsContainer');
+            const episodesContainer = document.getElementById('episodesContainer');
+            if (seasonsContainer) seasonsContainer.style.display = 'none';
+            if (episodesContainer) episodesContainer.style.display = 'none';
+            
+            const detailsFrame = document.getElementById('detailsFrame');
+            if (currentType === 'movie') {
+                if (detailsFrame) detailsFrame.src = `https://vidsrc.me/embed/movie?tmdb=${item.id}`;
+            } else {
+                currentTVId = item.id;
+                await loadSeasons(item.id);
+                if (detailsFrame) detailsFrame.src = '';
+            }
+            window.scrollTo(0, 0);
+        }
+
+        async function loadSeasons(tvId) {
+            try {
+                const res = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${API_KEY}&language=ar-SA`);
+                const data = await res.json();
+                const seasons = data.seasons.filter(s => s.season_number > 0 && s.episode_count > 0);
+                const seasonsContainer = document.getElementById('seasonsContainer');
+                if (seasons.length > 0 && seasonsContainer) {
+                    seasonsContainer.style.display = 'block';
+                    const seasonsDiv = document.getElementById('seasonsList');
+                    if (seasonsDiv) {
+                        seasonsDiv.innerHTML = '';
+                        seasons.forEach(season => {
+                            const card = document.createElement('div');
+                            card.className = 'season-card';
+                            card.innerHTML = `<div class="season-num">${season.season_number}</div><div>${season.episode_count} حلقة</div>`;
+                            card.onclick = () => loadEpisodes(tvId, season.season_number);
+                            seasonsDiv.appendChild(card);
+                        });
+                    }
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        async function loadEpisodes(tvId, seasonNum) {
+            try {
+                const res = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/season/${seasonNum}?api_key=${API_KEY}&language=ar-SA`);
+                const data = await res.json();
+                const episodesContainer = document.getElementById('episodesContainer');
+                if (episodesContainer) episodesContainer.style.display = 'block';
+                const episodesDiv = document.getElementById('episodesList');
+                if (episodesDiv) {
+                    episodesDiv.innerHTML = '';
+                    data.episodes.forEach(ep => {
+                        const card = document.createElement('div');
+                        card.className = 'episode-card';
+                        card.innerHTML = `<div class="episode-name">الحلقة ${ep.episode_number}: ${ep.name || 'حلقة'}</div><div style="font-size:12px; color:#aaa;">${(ep.overview || '').substring(0, 60)}</div>`;
+                        card.onclick = () => {
+                            const detailsFrame = document.getElementById('detailsFrame');
+                            if (detailsFrame) detailsFrame.src = `https://vidsrc.me/embed/tv?tmdb=${tvId}&season=${seasonNum}&episode=${ep.episode_number}`;
+                            window.scrollTo({ top: document.querySelector('.video-player')?.offsetTop - 80 || 0, behavior: 'smooth' });
+                        };
+                        episodesDiv.appendChild(card);
+                    });
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        function closeDetails() {
+            const detailsScreen = document.getElementById('detailsScreen');
+            const detailsFrame = document.getElementById('detailsFrame');
+            const seasonsContainer = document.getElementById('seasonsContainer');
+            const episodesContainer = document.getElementById('episodesContainer');
+            if (detailsScreen) detailsScreen.style.display = 'none';
+            if (detailsFrame) detailsFrame.src = '';
+            if (seasonsContainer) seasonsContainer.style.display = 'none';
+            if (episodesContainer) episodesContainer.style.display = 'none';
+        }
+
+        function loadMovies() { 
+            currentCategory = null;
+            page = 1; 
+            allItems = []; 
+            const grid = document.getElementById('grid'); 
+            if (grid) grid.innerHTML = ''; 
+            fetchMovies(); 
+        }
+        
+        function loadType(type) { 
+            currentType = type; 
+            currentCategory = null;
+            loadMovies(); 
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                if (!query) {
+                    renderItems(allItems);
+                    return;
+                }
+                const filtered = allItems.filter(i => (i.title || i.name || '').toLowerCase().includes(query));
+                renderItems(filtered);
+            });
+        }
+
+        window.onscroll = () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+                if (!isLoading && allItems.length > 0) fetchMovies();
+            }
+        };
+
+        window.onload = () => {
+            const saved = localStorage.getItem('nex_user');
+            if (saved) { const idInput = document.getElementById('discordId'); if (idInput) idInput.value = saved; login(); }
+        };
+    </script>
+    </body>
+    </html>
